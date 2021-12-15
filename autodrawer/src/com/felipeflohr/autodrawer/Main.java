@@ -8,6 +8,6 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        PixelAnalyzer a = new PixelAnalyzer(new File("C:\\Users\\Felipe\\Desktop\\Programacao\\Java\\autodrawer\\src\\com\\felipeflohr\\autodrawer\\fuetopng.png"), true);
+        PixelAnalyzer pA = new PixelAnalyzer(new File("C:\\Users\\Felipe\\Desktop\\Programacao\\Java\\autodrawer\\autodrawer\\src\\com\\felipeflohr\\autodrawer\\fuetopng.png"), true);
     }
 }

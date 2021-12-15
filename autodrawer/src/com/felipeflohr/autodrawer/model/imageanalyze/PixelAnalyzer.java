@@ -76,7 +76,6 @@ public class PixelAnalyzer {
                 } else if (previousPixelSameColor(currentPixel, previousPixel) && !nextPixelSameColor(currentPixel, nextPixel)) {
                     command = Command.DRAG;
                 } else {
-                    System.out.println("else");
                     command = Command.CLICK;
                 }
 
