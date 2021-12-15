@@ -1,6 +1,6 @@
 package com.felipeflohr.autodrawer;
 
-import com.felipeflohr.autodrawer.model.imageanalyze.PixelAnalyzer;
+import com.felipeflohr.autodrawer.model.PixelAnalyzer;
 
 import java.io.File;
 import java.io.IOException;

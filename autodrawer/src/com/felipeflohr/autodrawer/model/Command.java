@@ -1,4 +1,4 @@
-package com.felipeflohr.autodrawer.model.imageanalyze;
+package com.felipeflohr.autodrawer.model;
 
 public enum Command {
 
