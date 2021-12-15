@@ -1,4 +1,4 @@
-package com.felipeflohr.autodrawer.model;
+package com.felipeflohr.autodrawer.model.imageanalyze;
 
 public class Instruction {
 
@@ -22,5 +22,10 @@ public class Instruction {
 
     public Command getCommand() {
         return COMMAND;
+    }
+
+    @Override
+    public String toString() {
+        return "Instruction: <Coordinate: " + getCoordinate() + " | Pixel: " + getPixel() + " | Command: " + getCommand() + ">";
     }
 }
