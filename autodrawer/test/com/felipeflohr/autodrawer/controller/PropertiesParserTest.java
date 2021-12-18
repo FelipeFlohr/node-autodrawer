@@ -1,6 +1,6 @@
 package com.felipeflohr.autodrawer.controller;
 
-import com.felipeflohr.autodrawer.exception.InvalidCoordinateOnPropertiesFileException;
+import com.felipeflohr.autodrawer.exception.InvalidValueOnPropertiesFileException;
 import com.felipeflohr.autodrawer.model.Coordinate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +18,8 @@ class PropertiesParserTest {
     }
 
     @Test
-    void parseToCoordinateThrowsException() throws InvalidCoordinateOnPropertiesFileException {
-        Assertions.assertThrows(InvalidCoordinateOnPropertiesFileException.class, () -> {
+    void parseToCoordinateThrowsException() throws InvalidValueOnPropertiesFileException {
+        Assertions.assertThrows(InvalidValueOnPropertiesFileException.class, () -> {
             Coordinate expected = new Coordinate(800, 600);
             var coordinate = pp.parseToCoordinate("tool.marker");
         });
