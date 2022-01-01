@@ -16,6 +16,7 @@ public class Values {
     private final int brushSizeValue;
     private final int brushOpacityValue;
     private final Tools toolValue;
+    private final int delayValue;
 
     public Values(File file) throws IOException {
         this.properties = new Properties();
@@ -25,6 +26,7 @@ public class Values {
         this.brushSizeValue = parseToInt("value.brushsize");
         this.brushOpacityValue = parseToInt("value.brushopacity");
         this.toolValue = parseToTools();
+        this.delayValue = parseToInt("value.delay");
     }
 
     public Values(String resourceName) throws IOException {
@@ -35,10 +37,7 @@ public class Values {
         this.brushSizeValue = parseToInt("value.brushsize");
         this.brushOpacityValue = parseToInt("value.brushopacity");
         this.toolValue = parseToTools();
-    }
-
-    public Properties getProperties() {
-        return properties;
+        this.delayValue = parseToInt("value.delay");
     }
 
     public int getZoomValue() {
@@ -55,6 +54,10 @@ public class Values {
 
     public Tools getToolValue() {
         return toolValue;
+    }
+
+    public int getDelayValue() {
+        return delayValue;
     }
 
     private int parseToInt(String property) {

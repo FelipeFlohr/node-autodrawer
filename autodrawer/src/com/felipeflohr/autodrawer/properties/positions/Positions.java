@@ -21,7 +21,6 @@ public class Positions {
     private final Point boxBrushOpacity;
     private final Point boxZoom;
     private final Point buttonSelectedColorPreview;
-    private final Point buttonEditCustomColor;
     private final Point selectcolorRed;
     private final Point selectcolorGreen;
     private final Point selectcolorBlue;
@@ -43,7 +42,6 @@ public class Positions {
         boxBrushOpacity = parseToPoint("box.brushopacity");
         boxZoom = parseToPoint("box.zoom");
         buttonSelectedColorPreview = parseToPoint("button.selectedcolorpreview");
-        buttonEditCustomColor = parseToPoint("button.editcustomcolor");
         selectcolorRed = parseToPoint("selectcolor.red");
         selectcolorGreen = parseToPoint("selectcolor.green");
         selectcolorBlue = parseToPoint("selectcolor.blue");
@@ -66,7 +64,6 @@ public class Positions {
         boxBrushOpacity = parseToPoint("box.brushopacity");
         boxZoom = parseToPoint("box.zoom");
         buttonSelectedColorPreview = parseToPoint("button.selectedcolorpreview");
-        buttonEditCustomColor = parseToPoint("button.editcustomcolor");
         selectcolorRed = parseToPoint("selectcolor.red");
         selectcolorGreen = parseToPoint("selectcolor.green");
         selectcolorBlue = parseToPoint("selectcolor.blue");
@@ -130,10 +127,6 @@ public class Positions {
 
     public Point getButtonSelectedColorPreview() {
         return buttonSelectedColorPreview;
-    }
-
-    public Point getButtonEditCustomColor() {
-        return buttonEditCustomColor;
     }
 
     public Point getSelectcolorRed() {

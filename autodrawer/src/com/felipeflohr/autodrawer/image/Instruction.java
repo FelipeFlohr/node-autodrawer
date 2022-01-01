@@ -17,7 +17,7 @@ public class Instruction {
         return color;
     }
 
-    public List<CoordinateInstruction> getInstructionList() {
+    public List<CoordinateInstruction> getCoordinateInstructionList() {
         return coordinateInstructionList;
     }
 

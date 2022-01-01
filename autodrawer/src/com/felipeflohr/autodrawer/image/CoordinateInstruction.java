@@ -3,7 +3,7 @@ package com.felipeflohr.autodrawer.image;
 import java.awt.Color;
 import java.awt.Point;
 
-class CoordinateInstruction {
+public class CoordinateInstruction {
 
     private final Point coordinate;
     private final Command command;

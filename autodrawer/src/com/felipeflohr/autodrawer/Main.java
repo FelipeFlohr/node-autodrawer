@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ParsedImage pImage = new ParsedImage(new File("C:\\Users\\Felipe\\Desktop\\Programacao\\Java\\autodrawer\\autodrawer\\res\\fuetopng.png"));
+        ParsedImage pImage = new ParsedImage(new File("C:\\Users\\Felipe\\Desktop\\Programacao\\Java\\autodrawer\\autodrawer\\res\\casateste.png"));
 
         DefaultPositions positions = new DefaultPositions();
         DefaultValues values = new DefaultValues();

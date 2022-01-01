@@ -107,7 +107,7 @@ public class ParsedImage {
         List<Instruction> parsedInstructions = new ArrayList<>();
 
         generatedCoordinateInstructions.forEach(coordinateInstruction -> { // Will add every existent color into the list
-            if (colorList.contains(coordinateInstruction.getColor())) {
+            if (!colorList.contains(coordinateInstruction.getColor())) {
                 colorList.add(coordinateInstruction.getColor());
             }
         });

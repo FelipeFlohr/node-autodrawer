@@ -1,10 +1,15 @@
 package com.felipeflohr.autodrawer.drawing;
 
 import com.felipeflohr.autodrawer.canvas.Canvas;
+import com.felipeflohr.autodrawer.exception.InvalidBrushSize;
+import com.felipeflohr.autodrawer.image.Command;
+import com.felipeflohr.autodrawer.image.CoordinateInstruction;
 import com.felipeflohr.autodrawer.image.Instruction;
 import com.felipeflohr.autodrawer.properties.positions.Positions;
 import com.felipeflohr.autodrawer.properties.values.Values;
 
+import java.awt.Color;
+import java.awt.Point;
 import java.util.List;
 
 public class Drawer {
@@ -25,6 +30,42 @@ public class Drawer {
         resizeCanvas();
         setZoomAmount();
         setTool();
+        setBrushSize();
+        setOpacity();
+
+        final Point startingPoint = getCanvas().getStartingPoint();
+        int countColors = 0; // Count represents the amount of drawn colors
+
+        while (countColors < getInstructionList().size()) {
+            final Color color = getInstructionList().get(countColors).getColor();
+            final List<CoordinateInstruction> coordinateInstructionList = getInstructionList().get(countColors).getCoordinateInstructionList();
+
+            // Prevents from a possible cause of Paint freezing
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setColor(color);
+
+            coordinateInstructionList.forEach(c -> {
+                // Moving the mouse to the coordinate and clicking
+                if (c.getCommand().equals(Command.CLICK)) {
+                    MouseControl.moveToAndClick(startingPoint.getX() + c.getCoordinate().getX(),
+                            startingPoint.getY() + c.getCoordinate().getY());
+                } else if (c.getCommand().equals(Command.DRAG)) {
+                    MouseControl.dragTo(startingPoint.getX() + c.getCoordinate().getX(),
+                            startingPoint.getY() + c.getCoordinate().getY());
+                }
+
+                try {
+                    Thread.sleep(getValues().getDelayValue());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            countColors++;
+        }
     }
 
     // Mouse methods
@@ -56,6 +97,78 @@ public class Drawer {
         MouseControl.moveToAndDoubleClick(getPositions().getBoxZoom());
         KeyboardControl.typeValue(getValues().getZoomValue());
         KeyboardControl.enter();
+    }
+
+    protected void setColor(Color color) {
+        MouseControl.moveToAndClick(getPositions().getButtonSelectedColorPreview());
+
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // TODO: Alpha Channel Implementation
+        // Types Red
+        MouseControl.moveToAndClick(getPositions().getSelectcolorRed());
+        KeyboardControl.typeValue(color.getRed());
+
+        // Types Blue
+        MouseControl.moveToAndClick(getPositions().getSelectcolorGreen());
+        KeyboardControl.typeValue(color.getGreen());
+
+        // Types Green
+        MouseControl.moveToAndClick(getPositions().getSelectcolorBlue());
+        KeyboardControl.typeValue(color.getBlue());
+
+        MouseControl.moveToAndClick(getPositions().getSelectcolorOkButton());
+
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void setBrushSize() {
+        final int thickness = getValues().getBrushSizeValue();
+        checkBrushSize();
+
+        MouseControl.moveToAndClick(getPositions().getBoxBrushSize());
+        KeyboardControl.typeValue(thickness);
+    }
+
+    protected void setOpacity() {
+        MouseControl.moveToAndDoubleClick(getPositions().getBoxBrushOpacity());
+        KeyboardControl.typeValue(getValues().getBrushOpacityValue());
+    }
+
+    // Methods
+    private void checkBrushSize() {
+        final int thickness = getValues().getBrushSizeValue();
+
+        switch (getValues().getToolValue()) {
+            case MARKER:
+                if (thickness < 1 || thickness > 100) {
+                    throw new InvalidBrushSize("Invalid Brush Size. Marker needs to be >= 1 and <= 100");
+                } break;
+            case WATERCOLOR:
+                if (thickness < 5 || thickness > 200) {
+                    throw new InvalidBrushSize("Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
+                } break;
+            case PIXEL_PENCIL:
+                if (thickness < 1 || thickness > 100) {
+                    throw new InvalidBrushSize("Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
+                } break;
+            case GRAPHITE_PENCIL:
+                if (thickness < 5 || thickness > 10) {
+                    throw new InvalidBrushSize("Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
+                } break;
+            case CRAYON:
+                if (thickness < 10 || thickness > 100) {
+                    throw new InvalidBrushSize("Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
+                } break;
+        }
     }
 
     // Getters
