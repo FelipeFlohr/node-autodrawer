@@ -21,12 +21,20 @@ public class MouseControl {
         robot.mouseMove(x, y);
     }
 
+    public static void moveTo(double x, double y) {
+        robot.mouseMove((int) x, (int) y);
+    }
+
     public static void moveTo(Point coordinate) {
         moveTo(coordinate.x, coordinate.y);
     }
 
     public static void moveToAndClick(int x, int y) {
         moveToAndClick(x, y, false);
+    }
+
+    public static void moveToAndClick(double x, double y) {
+        moveToAndClick((int) x, (int) y);
     }
 
     public static void moveToAndClick(int x, int y, boolean rightButton) {
@@ -53,5 +61,19 @@ public class MouseControl {
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         }
+    }
+
+    public static void dragTo(int x, int y) {
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mouseMove(x, y);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+    }
+
+    public static void dragTo(Point coordinate) {
+        dragTo((int) coordinate.getX(), (int) coordinate.getY());
+    }
+
+    public static void dragTo(double x, double y) {
+        dragTo((int) x, (int) y);
     }
 }

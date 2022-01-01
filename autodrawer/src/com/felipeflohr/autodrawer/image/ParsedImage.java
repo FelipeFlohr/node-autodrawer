@@ -2,6 +2,7 @@ package com.felipeflohr.autodrawer.image;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -148,5 +149,9 @@ public class ParsedImage {
 
     public List<Instruction> getInstructionList() {
         return INSTRUCTION_LIST;
+    }
+
+    public Dimension getImageSize() {
+        return new Dimension(IMAGE_X_SIZE, IMAGE_Y_SIZE);
     }
 }
