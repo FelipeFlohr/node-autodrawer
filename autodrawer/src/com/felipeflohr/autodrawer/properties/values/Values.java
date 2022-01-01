@@ -1,5 +1,6 @@
 package com.felipeflohr.autodrawer.properties.values;
 
+import com.felipeflohr.autodrawer.drawing.Tools;
 import com.felipeflohr.autodrawer.exception.InvalidParameter;
 
 import java.io.File;
@@ -14,6 +15,7 @@ public class Values {
     private final int zoomValue;
     private final int brushSizeValue;
     private final int brushOpacityValue;
+    private final Tools toolValue;
 
     public Values(File file) throws IOException {
         this.properties = new Properties();
@@ -22,6 +24,7 @@ public class Values {
         this.zoomValue = parseToInt("value.zoom");
         this.brushSizeValue = parseToInt("value.brushsize");
         this.brushOpacityValue = parseToInt("value.brushopacity");
+        this.toolValue = parseToTools();
     }
 
     public Values(String resourceName) throws IOException {
@@ -31,6 +34,7 @@ public class Values {
         this.zoomValue = parseToInt("value.zoom");
         this.brushSizeValue = parseToInt("value.brushsize");
         this.brushOpacityValue = parseToInt("value.brushopacity");
+        this.toolValue = parseToTools();
     }
 
     public Properties getProperties() {
@@ -49,11 +53,28 @@ public class Values {
         return brushOpacityValue;
     }
 
+    public Tools getToolValue() {
+        return toolValue;
+    }
+
     private int parseToInt(String property) {
         try {
             return Integer.parseInt(properties.getProperty(property));
         } catch (NumberFormatException e) {
             throw new InvalidParameter("Invalid parameter. It needs to be a numeric integer value", e);
         }
+    }
+
+    private Tools parseToTools() {
+        final String tool = properties.getProperty("value.tool").toLowerCase().trim();
+        return switch (tool) {
+            case "marker" -> Tools.MARKER;
+            case "watercolor" -> Tools.WATERCOLOR;
+            case "pixelpencil" -> Tools.PIXEL_PENCIL;
+            case "graphitepencil" -> Tools.GRAPHITE_PENCIL;
+            case "crayon" -> Tools.CRAYON;
+            default -> throw new InvalidParameter("Invalid tool selected: " + tool +
+                    ". Available tools are: \"marker\", \"watercolor\", \"pixelpencil\", \"graphitepencil\", \"crayon\".");
+        };
     }
 }

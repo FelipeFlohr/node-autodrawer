@@ -17,9 +17,6 @@ public class Canvas {
         this.bottomRightCorner = bottomRightCorner;
         this.imageSize = imageSize;
 
-        System.out.println(this.bottomRightCorner.getX() - this.topLeftCorner.getX());
-        System.out.println(this.bottomRightCorner.getY() - this.topLeftCorner.getY());
-
         this.canvasSize = new Dimension((int) (this.bottomRightCorner.getX() - topLeftCorner.getX()),
                 (int) (this.bottomRightCorner.getY() - this.topLeftCorner.getX()));
         this.center = new Point((int) (this.bottomRightCorner.getX() + this.topLeftCorner.getX()) / 2,

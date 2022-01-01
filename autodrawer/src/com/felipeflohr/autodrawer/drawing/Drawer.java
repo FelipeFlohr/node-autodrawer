@@ -24,6 +24,7 @@ public class Drawer {
     public void drawingAlgorithm() {
         resizeCanvas();
         setZoomAmount();
+        setTool();
     }
 
     // Mouse methods
@@ -38,6 +39,16 @@ public class Drawer {
 
         MouseControl.moveToAndClick(getCanvas().getCenter().getX() + getPositions().getContextRedefineCanvas().getX(),
                 getCanvas().getCenter().getY() + getPositions().getContextRedefineCanvas().getY());
+    }
+
+    protected void setTool() {
+        switch (getValues().getToolValue()) {
+            case MARKER -> MouseControl.moveToAndClick(getPositions().getToolMarker());
+            case WATERCOLOR -> MouseControl.moveToAndClick(getPositions().getToolWatercolor());
+            case PIXEL_PENCIL -> MouseControl.moveToAndClick(getPositions().getToolPixelPencil());
+            case GRAPHITE_PENCIL -> MouseControl.moveToAndClick(getPositions().getToolGraphitePencil());
+            case CRAYON -> MouseControl.moveToAndClick(getPositions().getToolCrayon());
+        }
     }
 
     // Mouse and Keyboard methods

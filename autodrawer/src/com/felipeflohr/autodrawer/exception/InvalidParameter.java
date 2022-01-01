@@ -4,6 +4,10 @@ public class InvalidParameter extends RuntimeException {
 
     public InvalidParameter() {}
 
+    public InvalidParameter(String message) {
+        super(message);
+    }
+
     public InvalidParameter(String message, Throwable cause) {
         super(message, cause);
     }
