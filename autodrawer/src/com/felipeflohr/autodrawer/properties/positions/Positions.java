@@ -1,4 +1,4 @@
-package com.felipeflohr.autodrawer.properties;
+package com.felipeflohr.autodrawer.properties.positions;
 
 import com.felipeflohr.autodrawer.exception.InvalidParameter;
 
@@ -6,10 +6,9 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
-public class Values {
+public class Positions {
 
     private final Properties properties;
 
@@ -31,7 +30,7 @@ public class Values {
     private final Point canvasBottomRightCorner;
     private final Point contextRedefineCanvas;
 
-    public Values(File propertiesFile) throws IOException {
+    public Positions(File propertiesFile) throws IOException {
         this.properties = new Properties();
         this.properties.load(new FileInputStream(propertiesFile));
 
@@ -54,7 +53,7 @@ public class Values {
         contextRedefineCanvas = parseToPoint("context.redefinecanvas");
     }
 
-    public Values(String resourceName) throws IOException {
+    public Positions(String resourceName) throws IOException {
         this.properties = new Properties();
         this.properties.load(this.getClass().getResourceAsStream(resourceName));
 
@@ -77,7 +76,7 @@ public class Values {
         contextRedefineCanvas = parseToPoint("context.redefinecanvas");
     }
 
-    public Point parseToPoint(String property) {
+    private Point parseToPoint(String property) {
         String loadedProperty = properties.getProperty(property);
         int x;
         int y;

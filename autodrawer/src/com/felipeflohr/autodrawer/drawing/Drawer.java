@@ -2,54 +2,58 @@ package com.felipeflohr.autodrawer.drawing;
 
 import com.felipeflohr.autodrawer.canvas.Canvas;
 import com.felipeflohr.autodrawer.image.Instruction;
-import com.felipeflohr.autodrawer.properties.Values;
+import com.felipeflohr.autodrawer.properties.positions.Positions;
+import com.felipeflohr.autodrawer.properties.values.Values;
 
 import java.util.List;
 
 public class Drawer {
 
-    private final Canvas canvas;
-    private final Values values;
-    private final List<Instruction> instructionList;
+    protected final Canvas canvas;
+    protected final Positions positions;
+    protected final Values values;
+    protected final List<Instruction> instructionList;
 
-    public Drawer(Canvas canvas, Values values, List<Instruction> instructionList) {
+    public Drawer(Canvas canvas, Positions positions, Values values, List<Instruction> instructionList) {
         this.canvas = canvas;
+        this.positions = positions;
         this.values = values;
         this.instructionList = instructionList;
     }
 
-    // Mouse movements
-    public void moveToCenter() {
-        MouseControl.moveTo(getCanvas().getCenter());
+    public void drawingAlgorithm() {
+        resizeCanvas();
+        setZoomAmount();
     }
 
-    public void drawFourEdges() {
-        MouseControl.moveToAndClick(canvas.getTopLeftCorner()); // Clicks in the top left
-        MouseControl.dragTo(canvas.getBottomRightCorner().getX(), canvas.getTopLeftCorner().getY()); // Moves to the top right
-        MouseControl.dragTo(canvas.getBottomRightCorner()); // Moves to the bottom right
-        MouseControl.dragTo(canvas.getTopLeftCorner().getX(), canvas.getBottomRightCorner().getY()); // Moves to the bottom left
-        MouseControl.dragTo(getCanvas().getTopLeftCorner()); // Moves to the top left
+    // Mouse methods
+    protected void resizeCanvas() {
+        MouseControl.moveToAndClick(getCanvas().getCenter(), true);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        MouseControl.moveToAndClick(getCanvas().getCenter().getX() + getPositions().getContextRedefineCanvas().getX(),
+                getCanvas().getCenter().getY() + getPositions().getContextRedefineCanvas().getY());
     }
 
-    public void drawFourEdgesCenter() {
-        drawFourEdges();
-
-        // Drawing the center
-        MouseControl.moveTo(getCanvas().getCenter().getX(), getCanvas().getTopLeftCorner().getY());
-        MouseControl.dragTo(getCanvas().getCenter().getX(), getCanvas().getBottomRightCorner().getY());
-
-        MouseControl.moveTo(getCanvas().getTopLeftCorner().getX(), getCanvas().getCenter().getY());
-        MouseControl.dragTo(getCanvas().getBottomRightCorner().getX(), getCanvas().getCenter().getY());
-    }
-
-    public void drawStartingPoint() {
-        MouseControl.moveTo(getCanvas().getTopLeftCorner());
-        MouseControl.dragTo(canvas.getStartingPoint());
+    // Mouse and Keyboard methods
+    protected void setZoomAmount() {
+        MouseControl.moveToAndDoubleClick(getPositions().getBoxZoom());
+        KeyboardControl.typeValue(getValues().getZoomValue());
+        KeyboardControl.enter();
     }
 
     // Getters
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public Positions getPositions() {
+        return positions;
     }
 
     public Values getValues() {

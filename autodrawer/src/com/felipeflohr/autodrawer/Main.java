@@ -1,9 +1,10 @@
 package com.felipeflohr.autodrawer;
 
 import com.felipeflohr.autodrawer.canvas.Canvas;
-import com.felipeflohr.autodrawer.drawing.Drawer;
+import com.felipeflohr.autodrawer.debug.drawing.DebugDrawer;
 import com.felipeflohr.autodrawer.image.ParsedImage;
-import com.felipeflohr.autodrawer.properties.DefaultValues;
+import com.felipeflohr.autodrawer.properties.positions.DefaultPositions;
+import com.felipeflohr.autodrawer.properties.values.DefaultValues;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,13 +15,12 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         ParsedImage pImage = new ParsedImage(new File("C:\\Users\\Felipe\\Desktop\\Programacao\\Java\\autodrawer\\autodrawer\\res\\fuetopng.png"));
 
+        DefaultPositions positions = new DefaultPositions();
         DefaultValues values = new DefaultValues();
-        Canvas canvas = new Canvas(values.getCanvasTopLeftCorner(), values.getCanvasBottomRightCorner(), pImage.getImageSize());
-        Drawer drawer = new Drawer(canvas, values, pImage.getInstructionList());
+        Canvas canvas = new Canvas(positions.getCanvasTopLeftCorner(), positions.getCanvasBottomRightCorner(), pImage.getImageSize());
+        DebugDrawer drawer = new DebugDrawer(canvas, positions, values, pImage.getInstructionList());
 
         Thread.sleep(3000);
-        drawer.moveToCenter();
-        drawer.drawFourEdgesCenter();
-        drawer.drawStartingPoint();
+        drawer.drawingAlgorithm();
     }
 }
