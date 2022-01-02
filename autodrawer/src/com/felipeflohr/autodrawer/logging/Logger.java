@@ -12,7 +12,6 @@ public class Logger {
 
     private String folderPath;
     private File logFile;
-    private FileWriter fileWriter;
     private final boolean loggingToFile;
 
     // Regular colors
@@ -34,13 +33,6 @@ public class Logger {
     public Logger(String folderPath) {
         this.folderPath = folderPath;
         this.logFile = new CreateLogFile(folderPath).getFile();
-
-        try {
-            this.fileWriter = new FileWriter(logFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         loggingToFile = true;
         log(LogLevel.INFO, "Log created");
     }
@@ -57,7 +49,9 @@ public class Logger {
 
         if (isLoggingToFile()) {
             try {
+                FileWriter fileWriter = new FileWriter(getLogFile(), true);
                 fileWriter.write(logString(level, msg));
+                fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

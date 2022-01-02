@@ -2,11 +2,15 @@ package com.felipeflohr.autodrawer.properties.values;
 
 import com.felipeflohr.autodrawer.drawing.Tools;
 import com.felipeflohr.autodrawer.exception.InvalidParameter;
+import com.felipeflohr.autodrawer.logging.LogLevel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
 
 public class Values {
 
@@ -20,7 +24,13 @@ public class Values {
 
     public Values(File file) throws IOException {
         this.properties = new Properties();
-        this.properties.load(new FileInputStream(file));
+
+        try {
+            this.properties.load(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            logger.log(LogLevel.FATAL, "Values properties file not found");
+            throw new InvalidParameter("Values properties file not found.", e);
+        }
 
         this.zoomValue = parseToInt("value.zoom");
         this.brushSizeValue = parseToInt("value.brushsize");
@@ -31,7 +41,13 @@ public class Values {
 
     public Values(String resourceName) throws IOException {
         this.properties = new Properties();
-        this.properties.load(this.getClass().getResourceAsStream(resourceName));
+
+        try {
+            this.properties.load(this.getClass().getResourceAsStream(resourceName));
+        } catch (NullPointerException e) {
+            logger.log(LogLevel.FATAL, "Values properties file not found");
+            throw new FileNotFoundException("Values file not found.");
+        }
 
         this.zoomValue = parseToInt("value.zoom");
         this.brushSizeValue = parseToInt("value.brushsize");

@@ -15,7 +15,7 @@ class CreateLogFile {
     CreateLogFile(String pathToFolder) {
 
         final String date = new SimpleDateFormat("ddMMyyyyhhmmss").format(new Date());
-        String fileName = "log" + date + ".xml";
+        String fileName = "log" + date + ".txt";
 
         final boolean windowsPath = pathToFolder.contains("\\");
         String path = windowsPath ? pathToFolder + "\\" + fileName : pathToFolder + "/" + fileName; // Windows paths are represented by '\' and UNIX '/'

@@ -1,12 +1,16 @@
 package com.felipeflohr.autodrawer.properties.positions;
 
 import com.felipeflohr.autodrawer.exception.InvalidParameter;
+import com.felipeflohr.autodrawer.logging.LogLevel;
 
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
 
 public class Positions {
 
@@ -31,7 +35,13 @@ public class Positions {
 
     public Positions(File propertiesFile) throws IOException {
         this.properties = new Properties();
-        this.properties.load(new FileInputStream(propertiesFile));
+
+        try {
+            this.properties.load(new FileInputStream(propertiesFile));
+        } catch (FileNotFoundException e) {
+            logger.log(LogLevel.FATAL, "Positions properties file not found");
+            throw new InvalidParameter("Positions properties file not found.", e);
+        }
 
         toolMarker = parseToPoint("tool.marker");
         toolWatercolor = parseToPoint("tool.watercolor");
@@ -53,7 +63,13 @@ public class Positions {
 
     public Positions(String resourceName) throws IOException {
         this.properties = new Properties();
-        this.properties.load(this.getClass().getResourceAsStream(resourceName));
+
+        try {
+            this.properties.load(this.getClass().getResourceAsStream(resourceName));
+        } catch (NullPointerException e) {
+            logger.log(LogLevel.FATAL, "Positions properties file not found");
+            throw new FileNotFoundException("Properties file not found.");
+        }
 
         toolMarker = parseToPoint("tool.marker");
         toolWatercolor = parseToPoint("tool.watercolor");
@@ -82,6 +98,7 @@ public class Positions {
             x = Integer.parseInt(loadedProperty.split(",")[0].trim());
             y = Integer.parseInt(loadedProperty.split(",")[1].trim());
         } catch (NumberFormatException e) {
+            logger.log(LogLevel.FATAL, "Invalid parameter (" + loadedProperty + "). It needs to be two integers.");
             throw new InvalidParameter("Invalid parameter. It needs to be a numeric integer value", e);
         }
 
