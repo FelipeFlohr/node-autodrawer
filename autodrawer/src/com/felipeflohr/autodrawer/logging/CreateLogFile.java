@@ -6,11 +6,13 @@ import java.nio.file.FileAlreadyExistsException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateLogFile {
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
+
+class CreateLogFile {
 
     private File file;
 
-    public CreateLogFile(String pathToFolder) {
+    CreateLogFile(String pathToFolder) {
 
         final String date = new SimpleDateFormat("ddMMyyyyhhmmss").format(new Date());
         String fileName = "log" + date + ".xml";
@@ -21,6 +23,7 @@ public class CreateLogFile {
 
         try {
             if (!file.createNewFile()) {
+                logger.log(LogLevel.FATAL, "Log file already exists.");
                 throw new FileAlreadyExistsException("Log file already exists");
             }
         } catch (IOException e) {
@@ -28,7 +31,7 @@ public class CreateLogFile {
         }
     }
 
-    public File getFile() {
+    File getFile() {
         return file;
     }
 }

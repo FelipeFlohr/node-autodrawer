@@ -21,6 +21,6 @@ public class Main {
         DebugDrawer drawer = new DebugDrawer(canvas, positions, values, pImage.getInstructionList());
 
         Thread.sleep(3000);
-        drawer.drawingAlgorithm();
+        //drawer.drawingAlgorithm();
     }
 }

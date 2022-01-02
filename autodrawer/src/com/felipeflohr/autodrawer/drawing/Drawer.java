@@ -5,12 +5,15 @@ import com.felipeflohr.autodrawer.exception.InvalidBrushSize;
 import com.felipeflohr.autodrawer.image.Command;
 import com.felipeflohr.autodrawer.image.CoordinateInstruction;
 import com.felipeflohr.autodrawer.image.Instruction;
+import com.felipeflohr.autodrawer.logging.LogLevel;
 import com.felipeflohr.autodrawer.properties.positions.Positions;
 import com.felipeflohr.autodrawer.properties.values.Values;
 
 import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
+
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
 
 public class Drawer {
 
@@ -27,6 +30,7 @@ public class Drawer {
     }
 
     public void drawingAlgorithm() {
+        logger.log(LogLevel.INFO, "Started to draw");
         resizeCanvas();
         setZoomAmount();
         setTool();
@@ -39,6 +43,8 @@ public class Drawer {
         while (countColors < getInstructionList().size()) {
             final Color color = getInstructionList().get(countColors).getColor();
             final List<CoordinateInstruction> coordinateInstructionList = getInstructionList().get(countColors).getCoordinateInstructionList();
+            logger.log(LogLevel.INFO, "Starting to draw the pixels for color " + color);
+            logger.log(LogLevel.CONFIG, "There are a total of " + coordinateInstructionList.size() + " pixels for this color");
 
             // Prevents from a possible cause of Paint freezing
             try {
@@ -64,6 +70,8 @@ public class Drawer {
                     e.printStackTrace();
                 }
             });
+
+            logger.log(LogLevel.OK, "Finished all pixels for color " + color);
             countColors++;
         }
     }
@@ -80,6 +88,8 @@ public class Drawer {
 
         MouseControl.moveToAndClick(getCanvas().getCenter().getX() + getPositions().getContextRedefineCanvas().getX(),
                 getCanvas().getCenter().getY() + getPositions().getContextRedefineCanvas().getY());
+
+        logger.log(LogLevel.INFO, "Canvas centralized");
     }
 
     protected void setTool() {
@@ -90,6 +100,8 @@ public class Drawer {
             case GRAPHITE_PENCIL -> MouseControl.moveToAndClick(getPositions().getToolGraphitePencil());
             case CRAYON -> MouseControl.moveToAndClick(getPositions().getToolCrayon());
         }
+
+        logger.log(LogLevel.INFO, "Tool selected: " + getValues().getToolValue());
     }
 
     // Mouse and Keyboard methods
@@ -97,6 +109,8 @@ public class Drawer {
         MouseControl.moveToAndDoubleClick(getPositions().getBoxZoom());
         KeyboardControl.typeValue(getValues().getZoomValue());
         KeyboardControl.enter();
+
+        logger.log(LogLevel.INFO, "Zoom Amount set: " + getValues().getZoomValue());
     }
 
     protected void setColor(Color color) {
@@ -123,6 +137,8 @@ public class Drawer {
 
         MouseControl.moveToAndClick(getPositions().getSelectcolorOkButton());
 
+        logger.log(LogLevel.INFO, "Color set: " + color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+
         try {
             Thread.sleep(350);
         } catch (InterruptedException e) {
@@ -136,11 +152,13 @@ public class Drawer {
 
         MouseControl.moveToAndClick(getPositions().getBoxBrushSize());
         KeyboardControl.typeValue(thickness);
+        logger.log(LogLevel.INFO, "Brush size set: " + thickness);
     }
 
     protected void setOpacity() {
         MouseControl.moveToAndDoubleClick(getPositions().getBoxBrushOpacity());
         KeyboardControl.typeValue(getValues().getBrushOpacityValue());
+        logger.log(LogLevel.INFO, "Opacity set: " + getValues().getBrushOpacityValue());
     }
 
     // Methods
@@ -150,22 +168,27 @@ public class Drawer {
         switch (getValues().getToolValue()) {
             case MARKER:
                 if (thickness < 1 || thickness > 100) {
+                    logger.log(LogLevel.FATAL, "Invalid Brush Size. Marker needs to be >= 1 and <= 100");
                     throw new InvalidBrushSize("Invalid Brush Size. Marker needs to be >= 1 and <= 100");
                 } break;
             case WATERCOLOR:
                 if (thickness < 5 || thickness > 200) {
+                    logger.log(LogLevel.FATAL, "Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
                     throw new InvalidBrushSize("Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
                 } break;
             case PIXEL_PENCIL:
                 if (thickness < 1 || thickness > 100) {
+                    logger.log(LogLevel.FATAL, "Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
                     throw new InvalidBrushSize("Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
                 } break;
             case GRAPHITE_PENCIL:
                 if (thickness < 5 || thickness > 10) {
+                    logger.log(LogLevel.FATAL, "Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
                     throw new InvalidBrushSize("Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
                 } break;
             case CRAYON:
                 if (thickness < 10 || thickness > 100) {
+                    logger.log(LogLevel.FATAL, "Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
                     throw new InvalidBrushSize("Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
                 } break;
         }

@@ -1,7 +1,11 @@
 package com.felipeflohr.autodrawer.canvas;
 
+import com.felipeflohr.autodrawer.logging.LogLevel;
+
 import java.awt.Dimension;
 import java.awt.Point;
+
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
 
 public class Canvas {
 
@@ -23,6 +27,11 @@ public class Canvas {
                 (int) (this.bottomRightCorner.getY() + this.topLeftCorner.getY()) / 2);
         this.startingPoint = new Point((int) (this.center.getX() - this.imageSize.getWidth()),
                 (int) (this.center.getY() - this.imageSize.getHeight()));
+
+        logger.log(LogLevel.CONFIG, "Canvas size is: " + canvasSize);
+        logger.log(LogLevel.CONFIG, "Canvas center is located at: " + center);
+        logger.log(LogLevel.CONFIG, "Canvas starting point is located at: " + startingPoint);
+        logger.log(LogLevel.OK, "Canvas created.");
     }
 
     public Point getTopLeftCorner() {

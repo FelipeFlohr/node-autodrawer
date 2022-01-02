@@ -1,5 +1,7 @@
 package com.felipeflohr.autodrawer.image;
 
+import com.felipeflohr.autodrawer.logging.LogLevel;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.felipeflohr.autodrawer.logging.Logger.logger;
 
 public class ParsedImage {
 
@@ -26,6 +30,16 @@ public class ParsedImage {
         this.IMAGE_X_SIZE = getBufferedImage().getWidth();
         this.IMAGE_Y_SIZE = getBufferedImage().getHeight();
         this.INSTRUCTION_LIST = parseGeneratedInstructions();
+
+        logger.log(LogLevel.CONFIG, "Image is transparent: " + isTransparent());
+        logger.log(LogLevel.CONFIG, "Image width size: " + getImageXSize());
+        logger.log(LogLevel.CONFIG, "Image height size: " + getImageYSize());
+
+        if (getInstructionList().size() > 150) {
+            logger.log(LogLevel.WARNING, "There are a total of " + getInstructionList().size() + " instructions. The process may take time");
+        } else {
+            logger.log(LogLevel.CONFIG, "There are a total of " + getInstructionList().size() + " instructions");
+        }
     }
 
     public Point getPreviousPixel(int x, int y) {
@@ -62,6 +76,7 @@ public class ParsedImage {
         final int xSize = getImageXSize();
         final int ySize = getImageYSize();
 
+        logger.log(LogLevel.INFO, "Generating instructions");
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 Command command;
@@ -97,21 +112,27 @@ public class ParsedImage {
             }
         }
 
+        logger.log(LogLevel.OK, "Instructions generated");
         return coordinateInstructionList;
     }
 
     private List<Instruction> parseGeneratedInstructions() {
+        logger.log(LogLevel.INFO,"Parsing generated instructions");
         List<CoordinateInstruction> generatedCoordinateInstructions = generateInstructions();
 
         List<Color> colorList = new ArrayList<>();
         List<Instruction> parsedInstructions = new ArrayList<>();
 
+        logger.log(LogLevel.INFO, "Taking all existing colors");
         generatedCoordinateInstructions.forEach(coordinateInstruction -> { // Will add every existent color into the list
             if (!colorList.contains(coordinateInstruction.getColor())) {
                 colorList.add(coordinateInstruction.getColor());
             }
         });
+        logger.log(LogLevel.CONFIG, "All existing colors have been taken. There are a total of "
+                + colorList.size() + " colors");
 
+        logger.log(LogLevel.INFO, "Generating instructions for each color");
         for (Color color : colorList) {
             List<CoordinateInstruction> currentColorCoordinateInstruction = new ArrayList<>();
 
@@ -122,7 +143,9 @@ public class ParsedImage {
 
             parsedInstructions.add(new Instruction(color, currentColorCoordinateInstruction));
         }
+        logger.log(LogLevel.OK, "Instructions for each color generated.");
 
+        logger.log(LogLevel.OK, "Parsed all instructions");
         return parsedInstructions;
     }
 
