@@ -11,6 +11,7 @@ import com.felipeflohr.autodrawer.properties.values.Values;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Date;
 import java.util.List;
 
 import static com.felipeflohr.autodrawer.logging.Logger.logger;
@@ -64,11 +65,7 @@ public class Drawer {
                             startingPoint.getY() + c.getCoordinate().getY());
                 }
 
-                try {
-                    Thread.sleep(getValues().getDelayValue());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                delay(getValues().getDelayValue());
             });
 
             logger.log(LogLevel.OK, "Finished all pixels for color " + color);
@@ -162,6 +159,16 @@ public class Drawer {
     }
 
     // Methods
+    // This method is probably the weirdest thing I've ever made. I hope no one will ever see this.
+    private void delay(int delayMilli) {
+        final Date finalDate = new Date(System.currentTimeMillis() + delayMilli);
+        Date currentDate = new Date();
+
+        while (currentDate.before(finalDate)) {
+            currentDate = new Date();
+        }
+    }
+
     private void checkBrushSize() {
         final int thickness = getValues().getBrushSizeValue();
 
