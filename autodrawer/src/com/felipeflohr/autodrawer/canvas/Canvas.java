@@ -25,8 +25,8 @@ public class Canvas {
                 (int) (this.bottomRightCorner.getY() - this.topLeftCorner.getX()));
         this.center = new Point((int) (this.bottomRightCorner.getX() + this.topLeftCorner.getX()) / 2,
                 (int) (this.bottomRightCorner.getY() + this.topLeftCorner.getY()) / 2);
-        this.startingPoint = new Point((int) (this.center.getX() - this.imageSize.getWidth()),
-                (int) (this.center.getY() - this.imageSize.getHeight()));
+        this.startingPoint = new Point((int) (this.center.getX() - (this.imageSize.getWidth() / 2)),
+                (int) (this.center.getY() - (this.imageSize.getHeight() / 2)));
 
         logger.log(LogLevel.CONFIG, "Canvas size is: " + canvasSize);
         logger.log(LogLevel.CONFIG, "Canvas center is located at: " + center);
