@@ -1,7 +1,7 @@
 package com.felipeflohr.autodrawer.properties.values;
 
 import com.felipeflohr.autodrawer.drawing.Tools;
-import com.felipeflohr.autodrawer.exception.InvalidParameter;
+import com.felipeflohr.autodrawer.exception.InvalidParameterException;
 import com.felipeflohr.autodrawer.logging.LogLevel;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class Values {
             this.properties.load(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             logger.log(LogLevel.FATAL, "Values properties file not found");
-            throw new InvalidParameter("Values properties file not found.", e);
+            throw new InvalidParameterException("Values properties file not found.", e);
         }
 
         this.zoomValue = parseToInt("value.zoom");
@@ -80,7 +80,7 @@ public class Values {
         try {
             return Integer.parseInt(properties.getProperty(property));
         } catch (NumberFormatException e) {
-            throw new InvalidParameter("Invalid parameter. It needs to be a numeric integer value", e);
+            throw new InvalidParameterException("Invalid parameter. It needs to be a numeric integer value", e);
         }
     }
 
@@ -92,7 +92,7 @@ public class Values {
             case "pixelpencil" -> Tools.PIXEL_PENCIL;
             case "graphitepencil" -> Tools.GRAPHITE_PENCIL;
             case "crayon" -> Tools.CRAYON;
-            default -> throw new InvalidParameter("Invalid tool selected: " + tool +
+            default -> throw new InvalidParameterException("Invalid tool selected: " + tool +
                     ". Available tools are: \"marker\", \"watercolor\", \"pixelpencil\", \"graphitepencil\", \"crayon\".");
         };
     }

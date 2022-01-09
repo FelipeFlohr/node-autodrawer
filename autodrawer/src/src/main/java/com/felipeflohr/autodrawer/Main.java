@@ -8,7 +8,6 @@ import com.felipeflohr.autodrawer.properties.values.DefaultValues;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 // TODO: Properly rename the constants to upper letter
 public class Main {

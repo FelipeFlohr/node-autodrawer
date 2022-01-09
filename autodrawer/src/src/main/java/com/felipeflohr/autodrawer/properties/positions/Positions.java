@@ -1,6 +1,6 @@
 package com.felipeflohr.autodrawer.properties.positions;
 
-import com.felipeflohr.autodrawer.exception.InvalidParameter;
+import com.felipeflohr.autodrawer.exception.InvalidParameterException;
 import com.felipeflohr.autodrawer.logging.LogLevel;
 
 import java.awt.Point;
@@ -40,7 +40,7 @@ public class Positions {
             this.properties.load(new FileInputStream(propertiesFile));
         } catch (FileNotFoundException e) {
             logger.log(LogLevel.FATAL, "Positions properties file not found");
-            throw new InvalidParameter("Positions properties file not found.", e);
+            throw new InvalidParameterException("Positions properties file not found.", e);
         }
 
         toolMarker = parseToPoint("tool.marker");
@@ -99,7 +99,7 @@ public class Positions {
             y = Integer.parseInt(loadedProperty.split(",")[1].trim());
         } catch (NumberFormatException e) {
             logger.log(LogLevel.FATAL, "Invalid parameter (" + loadedProperty + "). It needs to be two integers.");
-            throw new InvalidParameter("Invalid parameter. It needs to be a numeric integer value", e);
+            throw new InvalidParameterException("Invalid parameter. It needs to be a numeric integer value", e);
         }
 
         return new Point(x, y);

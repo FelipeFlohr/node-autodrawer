@@ -17,6 +17,15 @@ public class DebugDrawer extends Drawer {
 
     // Debugging
     public void drawFourEdges() {
+        resizeCanvas();
+        setZoomAmount();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         MouseControl.moveToAndClick(canvas.getTopLeftCorner()); // Clicks in the top left
         MouseControl.dragTo(canvas.getBottomRightCorner().getX(), canvas.getTopLeftCorner().getY()); // Moves to the top right
         MouseControl.dragTo(canvas.getBottomRightCorner()); // Moves to the bottom right

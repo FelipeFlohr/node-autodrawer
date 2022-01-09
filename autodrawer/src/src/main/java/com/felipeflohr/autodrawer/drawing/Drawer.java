@@ -1,7 +1,8 @@
 package com.felipeflohr.autodrawer.drawing;
 
 import com.felipeflohr.autodrawer.canvas.Canvas;
-import com.felipeflohr.autodrawer.exception.InvalidBrushSize;
+import com.felipeflohr.autodrawer.exception.InvalidBrushSizeException;
+import com.felipeflohr.autodrawer.exception.InvalidImageSizeException;
 import com.felipeflohr.autodrawer.image.Command;
 import com.felipeflohr.autodrawer.image.CoordinateInstruction;
 import com.felipeflohr.autodrawer.image.Instruction;
@@ -11,6 +12,7 @@ import com.felipeflohr.autodrawer.properties.values.Values;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +33,8 @@ public class Drawer {
     }
 
     public void drawingAlgorithm() {
+        checkImageSize();
+
         logger.log(LogLevel.INFO, "Started to draw");
         resizeCanvas();
         setZoomAmount();
@@ -48,11 +52,7 @@ public class Drawer {
             logger.log(LogLevel.CONFIG, "There are a total of " + coordinateInstructionList.size() + " pixels for this color");
 
             // Prevents from a possible cause of Paint freezing
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            delay(2000);
             setColor(color);
 
             coordinateInstructionList.forEach(c -> {
@@ -160,13 +160,17 @@ public class Drawer {
 
     // Methods
     // This method is probably the weirdest thing I've ever made. I hope no one will ever see this.
-    private void delay(int delayMilli) {
-        final Date finalDate = new Date(System.currentTimeMillis() + delayMilli);
+    public void delay(int delayMilli) {
+        logger.log(LogLevel.INFO, "Entered delay");
         Date currentDate = new Date();
+        final long finalDate = new Date(currentDate.getTime() + delayMilli).getTime();
 
-        while (currentDate.before(finalDate)) {
-            currentDate = new Date();
+        while (currentDate.before(new Date(finalDate))) {
+            logger.log(LogLevel.WARNING, "Current date (" + currentDate.getTime() + ") not reached final date (" + finalDate + ") yet.");
+            currentDate = Calendar.getInstance().getTime();
         }
+
+        logger.log(LogLevel.OK, "Current date (" + currentDate.getTime() + ") reached final date (" + finalDate + ")");
     }
 
     private void checkBrushSize() {
@@ -176,28 +180,41 @@ public class Drawer {
             case MARKER:
                 if (thickness < 1 || thickness > 100) {
                     logger.log(LogLevel.FATAL, "Invalid Brush Size. Marker needs to be >= 1 and <= 100");
-                    throw new InvalidBrushSize("Invalid Brush Size. Marker needs to be >= 1 and <= 100");
+                    throw new InvalidBrushSizeException("Invalid Brush Size. Marker needs to be >= 1 and <= 100");
                 } break;
             case WATERCOLOR:
                 if (thickness < 5 || thickness > 200) {
                     logger.log(LogLevel.FATAL, "Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
-                    throw new InvalidBrushSize("Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
+                    throw new InvalidBrushSizeException("Invalid Brush Size. Watercolor needs to be >= 5 and <= 200");
                 } break;
             case PIXEL_PENCIL:
                 if (thickness < 1 || thickness > 100) {
                     logger.log(LogLevel.FATAL, "Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
-                    throw new InvalidBrushSize("Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
+                    throw new InvalidBrushSizeException("Invalid Brush Size. Pixel Pencil needs to be >= 1 and <= 100");
                 } break;
             case GRAPHITE_PENCIL:
                 if (thickness < 5 || thickness > 10) {
                     logger.log(LogLevel.FATAL, "Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
-                    throw new InvalidBrushSize("Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
+                    throw new InvalidBrushSizeException("Invalid Brush Size. Graphite Pencil needs to be >= 5 and <= 10");
                 } break;
             case CRAYON:
                 if (thickness < 10 || thickness > 100) {
                     logger.log(LogLevel.FATAL, "Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
-                    throw new InvalidBrushSize("Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
+                    throw new InvalidBrushSizeException("Invalid Brush Size. Crayon needs to be >= 10 and <= 100");
                 } break;
+        }
+    }
+
+    private void checkImageSize() {
+        final String imageSize = getCanvas().getImageSize().getWidth() + ", " + getCanvas().getImageSize().getHeight();
+        final String canvasSize = getCanvas().getCanvasSize().getWidth() + ", " + getCanvas().getCanvasSize().getHeight();
+
+        if (getCanvas().getImageSize().getWidth() > getCanvas().getCanvasSize().getWidth()
+                || getCanvas().getImageSize().getHeight() > getCanvas().getCanvasSize().getHeight()) {
+            logger.log(LogLevel.ERROR, "Image size (" + imageSize + ") is greater than Canvas size (" + canvasSize + "). Readjust image size");
+            throw new InvalidImageSizeException("Image size is greater than canvas size. Please check log");
+        } else {
+            logger.log(LogLevel.INFO, "Image size (" + imageSize + ") is ok in relation to Canvas size (" + canvasSize + ")");
         }
     }
 
