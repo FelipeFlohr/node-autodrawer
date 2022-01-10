@@ -20,7 +20,7 @@ public class Values {
     private final int brushSizeValue;
     private final int brushOpacityValue;
     private final Tools toolValue;
-    private final int delayValue;
+    private final long delayValue;
 
     public Values(File file) throws IOException {
         this.properties = new Properties();
@@ -36,7 +36,7 @@ public class Values {
         this.brushSizeValue = parseToInt("value.brushsize");
         this.brushOpacityValue = parseToInt("value.brushopacity");
         this.toolValue = parseToTools();
-        this.delayValue = parseToInt("value.delay");
+        this.delayValue = parseToLong("value.delay");
     }
 
     public Values(String resourceName) throws IOException {
@@ -72,13 +72,21 @@ public class Values {
         return toolValue;
     }
 
-    public int getDelayValue() {
+    public long getDelayValue() {
         return delayValue;
     }
 
     private int parseToInt(String property) {
         try {
             return Integer.parseInt(properties.getProperty(property));
+        } catch (NumberFormatException e) {
+            throw new InvalidParameterException("Invalid parameter. It needs to be a numeric integer value", e);
+        }
+    }
+
+    private long parseToLong(String property) {
+        try {
+            return Long.parseLong(properties.getProperty(property));
         } catch (NumberFormatException e) {
             throw new InvalidParameterException("Invalid parameter. It needs to be a numeric integer value", e);
         }

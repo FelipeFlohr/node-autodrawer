@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Logger {
 
-    public final static Logger logger = new Logger("C:\\Users\\Felipe\\Desktop\\Programação\\Java\\java-autodrawer\\autodrawer\\res\\log");
+    public final static Logger logger = new Logger("C:\\Users\\Felipe\\Desktop\\Programação\\Java\\java-autodrawer\\autodrawer\\src\\main\\res");
 
     private String folderPath;
     private File logFile;
