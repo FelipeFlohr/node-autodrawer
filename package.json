@@ -1,0 +1,28 @@
+{
+  "name": "autodrawer",
+  "version": "1.0.0",
+  "description": "An \"Autodrawer\" made using Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelipeFlohr/autodrawer.git"
+  },
+  "keywords": [
+    "autodrawer"
+  ],
+  "author": "Felipe Matheus Flohr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FelipeFlohr/autodrawer/issues"
+  },
+  "homepage": "https://github.com/FelipeFlohr/autodrawer#readme",
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "robotjs": "^0.6.0"
+  }
+}

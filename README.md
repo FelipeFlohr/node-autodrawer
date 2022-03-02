@@ -1,3 +1,3 @@
-# Java Autodrawer
+# Autodrawer
 
 W.I.P
