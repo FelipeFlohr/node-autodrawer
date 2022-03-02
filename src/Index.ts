@@ -1,7 +1,10 @@
-import { MouseControl } from "./controls/MouseControl";
-import { log, LogLevel } from "./logger/Logger";
+import {ImageParser} from "./parsers/ImageParser";
+import {PositionsParser} from "./parsers/PositionsParser";
 
-// MouseControl.moveTo(1070, 15)
-// MouseControl.leftClick()
+const parser = new ImageParser("../res/test2.jpg")
+parser.build().then(imgParser => {
+    imgParser.getPixels().forEach(pixel => console.log(pixel))
+})
 
-log(LogLevel.FATAL, "A fatal warning")
+const positions = new PositionsParser("./json/defaultpositions.json")
+console.log(positions.positions)
