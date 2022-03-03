@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron ./dist/view/Main.js",
     "testDrawer": "gulp && cd dist && node Index.js",
-    "testElectron": "gulp && cd dist && cd view && electron Main.js"
+    "testElectron": "gulp && cd dist && cd view && electron Main.js",
+    "rebuildElectron": "npm rebuild --runtime=electron --target=13.6.9 --disturl=https://atom.io/download/atom-shell --abi=79"
   },
   "repository": {
     "type": "git",
@@ -25,10 +26,11 @@
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "@types/node": "^17.0.21",
-    "electron": "^17.1.0",
+    "electron": "13.6.9",
     "gulp": "4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",

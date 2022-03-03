@@ -1,10 +1,10 @@
 const { extensions } = require("./extensions.json")
-
 const gulp = require("gulp")
 const tsProject = require("gulp-typescript").createProject("./tsconfig.json")
 const babel = require("gulp-babel")
 const uglify = require("gulp-uglify")
 const htmlmin = require("gulp-htmlmin")
+const concat = require("gulp-concat")
 
 function processTS(callback) {
     return tsProject.src()
@@ -38,8 +38,18 @@ function processOtherFiles(callback) {
         .pipe(gulp.dest("dist"))
 }
 
+function processFrontendJS(callback) {
+    return gulp.src("src/view/**/*.js")
+        .pipe(concat("app.min.js"))
+        .pipe(uglify({
+            compress: true
+        }))
+        .pipe(gulp.dest("dist/view/assets/js"))
+}
+
 module.exports = {
     processTS,
     processHTML,
-    processOtherFiles
+    processOtherFiles,
+    processFrontendJS
 }

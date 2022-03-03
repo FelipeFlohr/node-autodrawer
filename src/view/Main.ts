@@ -1,13 +1,16 @@
 import { app, BrowserWindow } from "electron"
 
 app.on("ready", () => {
-   const window = new BrowserWindow({
-       width: 800,
-       height: 600,
-       webPreferences: {
-           nodeIntegration: true
-       }
-   })
+    app.allowRendererProcessReuse = false
+    const window = new BrowserWindow({
+        width: 1280,
+        height: 720,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            devTools: false
+        }
+    })
 
-   window.loadFile("./assets/index.html")
+    window.loadFile("./index.html")
 })
