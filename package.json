@@ -4,7 +4,9 @@
   "description": "An \"Autodrawer\" made using Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ./dist/view/Main.js",
+    "testDrawer": "gulp && cd dist && node Index.js",
+    "testElectron": "gulp && cd dist && cd view && electron Main.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,16 @@
   },
   "homepage": "https://github.com/FelipeFlohr/autodrawer#readme",
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
     "@types/node": "^17.0.21",
+    "electron": "^17.1.0",
+    "gulp": "4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
     "typescript": "^4.6.2"
   },
   "dependencies": {

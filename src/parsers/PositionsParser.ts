@@ -3,7 +3,7 @@ import fs from "fs";
 
 export class PositionsParser {
     private readonly _path: string
-    private _positions: Positions
+    private readonly _positions: Positions
 
     constructor(jsonPath: string) {
         this._path = jsonPath;

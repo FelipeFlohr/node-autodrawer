@@ -1,14 +1,16 @@
 {
+  "files": ["src/**/*.ts"],
   "compilerOptions": {
     "module": "CommonJS",
     "esModuleInterop": true,
-    "target": "ES5",
+    "target": "ES6",
     "noImplicitAny": false,
     "outDir": "dist",
     "baseUrl": ".",
     "watch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "rootDir": "src"
   },
-  "include": ["src/**/*", "src/**/*.json"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
