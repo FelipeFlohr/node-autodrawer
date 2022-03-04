@@ -12,10 +12,11 @@ export class MouseControl {
             robot.moveMouse(currentPos.x + xPosOrPoint, currentPos.y + y)
         } else {
             const newPoint: Point = {
-                x: currentPos.x,
-                y: currentPos.y
+                x: currentPos.x + xPosOrPoint.x,
+                y: currentPos.y + xPosOrPoint.y
             }
-            robot.moveMouse(newPoint.x, newPoint.y)
+
+            this.moveTo(newPoint)
         }
     }
 

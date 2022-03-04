@@ -1,4 +1,4 @@
 const { parallel } = require("gulp")
-const { processTS, processHTML, processOtherFiles } = require("./gulp/process")
+const { processTS, processOtherFiles } = require("./gulp/process")
 
-module.exports.default = parallel(processTS, processHTML, processOtherFiles)
+module.exports.default = parallel(processTS, processOtherFiles)

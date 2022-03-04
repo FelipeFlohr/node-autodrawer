@@ -16,23 +16,15 @@ export class Drawer {
         this._canvas = canvas
     }
 
-    public start(): void {
+    public async start(): Promise<void> {
 
     }
 
     public async redefineCanvas() {
         MouseControl.moveTo(this._canvas.center)
-        await sleep(250)
+        await sleep(75)
         MouseControl.rightClick()
-        await sleep(500)
-        MouseControl.move(this._positions.contextRedefineCanvas)
-        await sleep(500)
-        MouseControl.move(this._positions.contextRedefineCanvas)
-        await sleep(500)
-        MouseControl.move(this._positions.contextRedefineCanvas)
-        await sleep(500)
-        MouseControl.move(this._positions.contextRedefineCanvas)
-        await sleep(500)
+        await sleep(150)
         MouseControl.move(this._positions.contextRedefineCanvas)
         MouseControl.leftClick()
     }

@@ -3,10 +3,6 @@ const gulp = require("gulp")
 const tsProject = require("gulp-typescript").createProject("./tsconfig.json")
 const babel = require("gulp-babel")
 const uglify = require("gulp-uglify")
-const uglifycss = require("gulp-uglifycss")
-const htmlmin = require("gulp-htmlmin")
-const concat = require("gulp-concat")
-const sass = require("gulp-sass")(require("sass"))
 
 function processTS(callback) {
     return tsProject.src()
@@ -17,14 +13,6 @@ function processTS(callback) {
         }))
         .pipe(uglify({
             compress: true
-        }))
-        .pipe(gulp.dest("dist"))
-}
-
-function processHTML(callback) {
-    return gulp.src("src/**/*.html")
-        .pipe(htmlmin({
-            collapseWhitespace: true
         }))
         .pipe(gulp.dest("dist"))
 }
@@ -42,6 +30,5 @@ function processOtherFiles(callback) {
 
 module.exports = {
     processTS,
-    processHTML,
     processOtherFiles
 }

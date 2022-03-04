@@ -1,0 +1,6 @@
+{
+    "useDefaultPositions": true,
+    "delayFactor": 1,
+    "imageLocation": "../res/test2.jpg",
+    "positionsLocation": "./json/defaultpositions.json"
+}

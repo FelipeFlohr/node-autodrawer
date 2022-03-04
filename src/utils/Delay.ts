@@ -1,3 +1,6 @@
+import { getConfig } from "./Config";
+
 export async function sleep(ms: number) {
-    return await new Promise(resolve => setTimeout(resolve, ms));
+    const delay = ms * getConfig().delayFactor
+    return await new Promise(resolve => setTimeout(resolve, delay));
 }

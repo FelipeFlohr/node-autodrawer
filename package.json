@@ -4,7 +4,8 @@
   "description": "An \"Autodrawer\" made using Node.js",
   "main": "index.js",
   "scripts": {
-    "start": "gulp && cd dist && node Index.js"
+    "start": "cd dist && node Index.js",
+    "buildStart": "gulp && cd dist && node Index.js"
   },
   "repository": {
     "type": "git",
@@ -26,13 +27,8 @@
     "gulp": "4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-sass": "^5.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
-    "gulp-uglifycss": "^1.1.0",
-    "sass": "^1.49.9",
     "typescript": "^4.6.2"
   },
   "dependencies": {
