@@ -3,8 +3,10 @@ const gulp = require("gulp")
 const tsProject = require("gulp-typescript").createProject("./tsconfig.json")
 const babel = require("gulp-babel")
 const uglify = require("gulp-uglify")
+const uglifycss = require("gulp-uglifycss")
 const htmlmin = require("gulp-htmlmin")
 const concat = require("gulp-concat")
+const sass = require("gulp-sass")(require("sass"))
 
 function processTS(callback) {
     return tsProject.src()
@@ -47,9 +49,18 @@ function processFrontendJS(callback) {
         .pipe(gulp.dest("dist/view/assets/js"))
 }
 
+function processSASS(callback) {
+    return gulp.src("src/view/assets/sass/index.scss")
+        .pipe(sass().on("error", sass.logError))
+        .pipe(uglifycss())
+        .pipe(concat("app.min.css"))
+        .pipe(gulp.dest("dist/view/assets/css"))
+}
+
 module.exports = {
     processTS,
     processHTML,
     processOtherFiles,
-    processFrontendJS
+    processFrontendJS,
+    processSASS
 }
