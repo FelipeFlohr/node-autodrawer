@@ -9,7 +9,9 @@ export function getConfig(): config {
 
 type config = {
     "useDefaultPositions": boolean,
+    "useDefaultValues": boolean,
     "delayFactor": number,
     "imageLocation": string,
-    "positionsLocation": string
+    "positionsLocation": string,
+    "valuesLocation": string
 }
