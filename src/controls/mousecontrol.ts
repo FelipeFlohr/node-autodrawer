@@ -3,10 +3,25 @@ import { Point } from "src/types/Point"
 
 export class MouseControl {
 
-    // Overloading
-    public static moveTo(x: number, y: number);
-    public static moveTo(point: Point);
-    public static moveTo(xPosOrPoint: number | Point, y?: number) {
+    public static move(x: number, y: number): void;
+    public static move(point: Point): void;
+    public static move(xPosOrPoint: number | Point, y?: number): void {
+        const currentPos = robot.getMousePos()
+
+        if (typeof(xPosOrPoint) == "number") {
+            robot.moveMouse(currentPos.x + xPosOrPoint, currentPos.y + y)
+        } else {
+            const newPoint: Point = {
+                x: currentPos.x,
+                y: currentPos.y
+            }
+            robot.moveMouse(newPoint.x, newPoint.y)
+        }
+    }
+
+    public static moveTo(x: number, y: number): void;
+    public static moveTo(point: Point): void;
+    public static moveTo(xPosOrPoint: number | Point, y?: number): void {
         if (typeof(xPosOrPoint) == "number") {
             robot.moveMouse(xPosOrPoint, y)
         } else {

@@ -40,27 +40,8 @@ function processOtherFiles(callback) {
         .pipe(gulp.dest("dist"))
 }
 
-function processFrontendJS(callback) {
-    return gulp.src("src/view/**/*.js")
-        .pipe(concat("app.min.js"))
-        .pipe(uglify({
-            compress: true
-        }))
-        .pipe(gulp.dest("dist/view/assets/js"))
-}
-
-function processSASS(callback) {
-    return gulp.src("src/view/assets/sass/index.scss")
-        .pipe(sass().on("error", sass.logError))
-        .pipe(uglifycss())
-        .pipe(concat("app.min.css"))
-        .pipe(gulp.dest("dist/view/assets/css"))
-}
-
 module.exports = {
     processTS,
     processHTML,
-    processOtherFiles,
-    processFrontendJS,
-    processSASS
+    processOtherFiles
 }

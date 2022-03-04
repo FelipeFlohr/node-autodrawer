@@ -25,6 +25,15 @@ export class Drawer {
         await sleep(250)
         MouseControl.rightClick()
         await sleep(500)
-        MouseControl.leftClick(this._positions.contextRedefineCanvas)
+        MouseControl.move(this._positions.contextRedefineCanvas)
+        await sleep(500)
+        MouseControl.move(this._positions.contextRedefineCanvas)
+        await sleep(500)
+        MouseControl.move(this._positions.contextRedefineCanvas)
+        await sleep(500)
+        MouseControl.move(this._positions.contextRedefineCanvas)
+        await sleep(500)
+        MouseControl.move(this._positions.contextRedefineCanvas)
+        MouseControl.leftClick()
     }
 }
