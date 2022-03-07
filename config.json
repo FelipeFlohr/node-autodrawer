@@ -1,8 +1,8 @@
 {
-    "useDefaultPositions": true,
-    "useDefaultValues": true,
+    "useDefaultPositions": false,
+    "useDefaultValues": false,
     "delayFactor": 1,
     "imageLocation": "../res/test4.png",
-    "positionsLocation": "./json/defaultpositions.json",
-    "valuesLocation": "./json/defaultvalues.json"
+    "positionsLocation": "../res/positions.json",
+    "valuesLocation": "../res/values.json"
 }
