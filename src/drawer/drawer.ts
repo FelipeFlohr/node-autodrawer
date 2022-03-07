@@ -87,19 +87,19 @@ export class Drawer {
 
         MouseControl.moveTo(this._positions.selectColorRed)
         doubleClick()
-        sleep(100)
+        sleep(200)
         KeyboardControl.delete()
         KeyboardControl.type(color.r)
 
         MouseControl.moveTo(this._positions.selectColorGreen)
         doubleClick()
-        sleep(100)
+        sleep(200)
         KeyboardControl.delete()
         KeyboardControl.type(color.g)
 
         MouseControl.moveTo(this._positions.selectColorBlue)
         doubleClick()
-        sleep(100)
+        sleep(200)
         KeyboardControl.delete()
         KeyboardControl.type(color.b)
 
