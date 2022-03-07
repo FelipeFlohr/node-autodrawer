@@ -1,4 +1,4 @@
-import {Positions} from "../types/Positions";
+import {Positions} from "../types/positions";
 import fs from "fs";
 
 /**

@@ -1,4 +1,4 @@
-import { Values } from "../types/Values";
+import { Values } from "../types/values";
 import fs from "fs";
 
 /**

@@ -1,7 +1,7 @@
 import jimp from "jimp";
-import { Point } from "../types/Point";
-import { Color } from "../types/Color";
-import { log, LogLevel } from "../logger/Logger";
+import { Point } from "../types/point";
+import { Color } from "../types/color";
+import { log, LogLevel } from "../logger/logger";
 
 /**
  * Class that parses the Image to Pixels and Instructions.

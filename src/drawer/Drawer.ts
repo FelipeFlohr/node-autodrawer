@@ -1,13 +1,13 @@
-import { Positions } from "../types/Positions";
-import { Canvas } from "../models/Canvas";
-import { MouseControl } from "../controls/MouseControl";
-import { sleep } from "../utils/Delay";
-import { Tool, Values } from "../types/Values";
-import { KeyboardControl } from "../controls/KeyboardControl";
-import { log, LogLevel } from "../logger/Logger";
-import { Command, ParsedInstructions } from "../parsers/ImageParser";
-import { Color } from "../types/Color";
-import { Point } from "../types/Point";
+import { Positions } from "../types/positions";
+import { Canvas } from "../models/canvas";
+import { MouseControl } from "../controls/mousecontrol";
+import { sleep } from "../utils/delay";
+import { Tool, Values } from "../types/values";
+import { KeyboardControl } from "../controls/keyboardcontrol";
+import { log, LogLevel } from "../logger/logger";
+import { Command, ParsedInstructions } from "../parsers/imageparser";
+import { Color } from "../types/color";
+import { Point } from "../types/point";
 
 /**
  * Class that represents the Drawer. Will use Robot.JS for Mouse and Keyboard control

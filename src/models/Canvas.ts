@@ -1,5 +1,5 @@
-import { Dimension } from "../types/Dimension";
-import { Point } from "../types/Point";
+import { Dimension } from "../types/dimension";
+import { Point } from "../types/point";
 
 /**
  * Represents a Canvas.

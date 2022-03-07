@@ -1,5 +1,5 @@
 import robot from "robotjs"
-import { Point } from "src/types/Point"
+import { Point } from "src/types/point"
 
 export class MouseControl {
 

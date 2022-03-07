@@ -1,9 +1,9 @@
-import { Drawer } from "./drawer/Drawer";
-import { ImageParser } from "./parsers/ImageParser";
-import { PositionsParser } from "./parsers/PositionsParser";
-import { Canvas } from "./models/Canvas";
-import { getConfig } from "./utils/Config";
-import { ValuesParser } from "./parsers/ValuesParser";
+import { Drawer } from "./drawer/drawer";
+import { ImageParser } from "./parsers/imageparser";
+import { PositionsParser } from "./parsers/positionsparser";
+import { Canvas } from "./models/canvas";
+import { getConfig } from "./utils/config";
+import { ValuesParser } from "./parsers/valuesparser";
 
 /**
  * Starts the program

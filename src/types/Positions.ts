@@ -1,4 +1,4 @@
-import { Point } from "./Point";
+import { Point } from "./point";
 
 /**
  * Coordinates the program will use to interact with Paint 3D

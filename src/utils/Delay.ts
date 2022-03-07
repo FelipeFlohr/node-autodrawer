@@ -1,4 +1,4 @@
-import { getConfig } from "./Config";
+import { getConfig } from "./config";
 
 /**
  * Method similar to Java's *Thread.sleep* but in a less resource expensive way. Brings the Event Loop to a halt.
