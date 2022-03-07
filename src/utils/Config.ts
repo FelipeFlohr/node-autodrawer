@@ -3,8 +3,7 @@ import fs from "fs"
 export function getConfig(): config {
     const jsonString = fs.readFileSync("../config.json").toString()
 
-    const json: config = JSON.parse(jsonString)
-    return json
+    return JSON.parse(jsonString)
 }
 
 type config = {
@@ -13,5 +12,6 @@ type config = {
     "delayFactor": number,
     "imageLocation": string,
     "positionsLocation": string,
-    "valuesLocation": string
+    "valuesLocation": string,
+    "stopKey": string
 }

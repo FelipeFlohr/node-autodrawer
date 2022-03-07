@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd dist && node Index.js",
+    "build": "gulp",
     "buildStart": "gulp && cd dist && node Index.js"
   },
   "repository": {

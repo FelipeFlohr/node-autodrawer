@@ -18,6 +18,7 @@ export class MouseControl {
 
             this.moveTo(newPoint)
         }
+
     }
 
     public static moveTo(x: number, y: number): void;
@@ -28,6 +29,18 @@ export class MouseControl {
         } else {
             robot.moveMouse(xPosOrPoint.x, xPosOrPoint.y)
         }
+    }
+
+    public static dragTo(x: number, y: number): void;
+    public static dragTo(point: Point): void;
+    public static dragTo(xPosOrPoint: number | Point, y?: number) {
+        robot.mouseToggle("down", "left")
+        if (typeof(xPosOrPoint) == "number") {
+            this.moveTo(xPosOrPoint, y)
+        } else {
+            this.moveTo(xPosOrPoint)
+        }
+        robot.mouseToggle("up", "left")
     }
 
     public static getCursorPosition(): Point {

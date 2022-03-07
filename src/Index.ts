@@ -13,14 +13,16 @@ async function start() {
     const imagePath = configFile.imageLocation
 
     const imageParser = await new ImageParser(imagePath).build()
-    const pixelInstructions = imageParser.getPixels()
+    const instructions = imageParser.getPixels()
 
     const positions = new PositionsParser(positionsPath).positions
     const values = new ValuesParser(valuesPath).values
     const canvas = new Canvas(positions.canvasTopLeftCorner, positions.canvasBottomRightCorner, { width: imageParser.image.bitmap.width, height: imageParser.image.bitmap.height })
 
-    const drawer = new Drawer(pixelInstructions, positions, values, canvas)
+    const drawer = new Drawer(instructions, positions, values, canvas)
     await drawer.start()
 }
 
-start()
+start().then(() => {
+    process.exit(0)
+})

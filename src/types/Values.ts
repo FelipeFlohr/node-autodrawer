@@ -1,11 +1,11 @@
 export type Values = {
     zoom: number,
-    brushSize: 5,
-    brushOpacity: 75,
+    brushSize: number,
+    brushOpacity: number,
     tool: Tool
 }
 
-enum Tool {
+export enum Tool {
     MARKER = "marker",
     WATERCOLOR = "watercolor",
     PIXEL_PENCIL = "pixelpencil",

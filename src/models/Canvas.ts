@@ -9,7 +9,6 @@ export class Canvas {
     private readonly _imageSize: Dimension
     private readonly _canvasSize: Dimension
 
-
     constructor(topLeftCorner: Point, bottomRightCorner: Point, imageSize: Dimension) {
         this._topLeftCorner = topLeftCorner;
         this._bottomRightCorner = bottomRightCorner;
@@ -25,9 +24,10 @@ export class Canvas {
             y: (this._bottomRightCorner.y + this._topLeftCorner.y) / 2
         }
 
+        const toInt = (num: number) => parseInt(`${num}`)
         this._startingPoint = {
-            x: (this._center.x - this._imageSize.width) / 2,
-            y: (this._center.y - this._imageSize.height) / 2
+            x: this._center.x - toInt(this._imageSize.width / 2),
+            y: this._center.y - toInt(this._imageSize.height / 2)
         }
     }
 

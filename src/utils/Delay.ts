@@ -1,6 +1,6 @@
 import { getConfig } from "./Config";
 
-export async function sleep(ms: number) {
-    const delay = ms * getConfig().delayFactor
-    return await new Promise(resolve => setTimeout(resolve, delay));
+export function sleep(ms: number) {
+    const time = ms * getConfig().delayFactor
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, time)
 }

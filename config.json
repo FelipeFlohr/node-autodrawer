@@ -2,7 +2,8 @@
     "useDefaultPositions": true,
     "useDefaultValues": true,
     "delayFactor": 1,
-    "imageLocation": "../res/test2.jpg",
+    "imageLocation": "../res/test4.png",
     "positionsLocation": "./json/defaultpositions.json",
-    "valuesLocation": "./json/defaultvalues.json"
+    "valuesLocation": "./json/defaultvalues.json",
+    "stopKey": "A"
 }
