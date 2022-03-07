@@ -4,6 +4,5 @@
     "delayFactor": 1,
     "imageLocation": "../res/test4.png",
     "positionsLocation": "./json/defaultpositions.json",
-    "valuesLocation": "./json/defaultvalues.json",
-    "stopKey": "A"
+    "valuesLocation": "./json/defaultvalues.json"
 }

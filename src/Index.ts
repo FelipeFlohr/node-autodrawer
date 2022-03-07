@@ -5,6 +5,9 @@ import { Canvas } from "./models/Canvas";
 import { getConfig } from "./utils/Config";
 import { ValuesParser } from "./parsers/ValuesParser";
 
+/**
+ * Starts the program
+ */
 async function start() {
     const configFile = getConfig()
 
@@ -13,7 +16,7 @@ async function start() {
     const imagePath = configFile.imageLocation
 
     const imageParser = await new ImageParser(imagePath).build()
-    const instructions = imageParser.getPixels()
+    const instructions = imageParser.pixels
 
     const positions = new PositionsParser(positionsPath).positions
     const values = new ValuesParser(valuesPath).values

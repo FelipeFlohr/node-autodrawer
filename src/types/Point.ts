@@ -1,3 +1,6 @@
+/**
+ * Represents a XY Coordinate
+ */
 export type Point = {
     x: number,
     y: number

@@ -1,6 +1,10 @@
 import { Dimension } from "../types/Dimension";
 import { Point } from "../types/Point";
 
+/**
+ * Represents a Canvas.
+ * @author - Felipe Matheus Flohr
+ */
 export class Canvas {
     private readonly _topLeftCorner: Point
     private readonly _bottomRightCorner: Point
@@ -9,6 +13,14 @@ export class Canvas {
     private readonly _imageSize: Dimension
     private readonly _canvasSize: Dimension
 
+    /**
+     * Constructor for the canvas
+     * 
+     * @param topLeftCorner - The XY Top Left Corner position of Paint 3D's canvas.
+     * @param bottomRightCorner - The XY Bottom Right Corner position of Paint 3D's canvas.
+     * @param imageSize - The image size (dimension).
+     * @throws - Exception if image size is greater than canvas size.
+     */
     constructor(topLeftCorner: Point, bottomRightCorner: Point, imageSize: Dimension) {
         this._topLeftCorner = topLeftCorner;
         this._bottomRightCorner = bottomRightCorner;
@@ -35,26 +47,50 @@ export class Canvas {
         }
     }
 
+    /**
+     * Getter for the Canvas Top Left Corner.
+     * @returns Canvas Top Left Corner XY Position
+     */
     get topLeftCorner(): Point {
         return this._topLeftCorner;
     }
 
+    /**
+     * Getter for the Canvas Bottom Right Corner.
+     * @returns Canvas Bottom Right Corner XY Position
+     */
     get bottomRightCorner(): Point {
         return this._bottomRightCorner;
     }
 
+    /**
+     * Getter for the Canvas center.
+     * @returns Canvas center XY Position
+     */
     get center(): Point {
         return this._center;
     }
 
+    /**
+     * Getter for the Canvas starting point (position where the first pixel will be drawn).
+     * @returns Canvas starting point XY Position
+     */
     get startingPoint(): Point {
         return this._startingPoint;
     }
 
+    /**
+     * Getter for the Image Size.
+     * @returns Image Size as a Dimension type
+     */
     get imageSize(): Dimension {
         return this._imageSize;
     }
 
+    /**
+     * Getter for the Canvas size
+     * @returns Canvas Size as a Dimension type
+     */
     get canvasSize(): Dimension {
         return this._canvasSize;
     }

@@ -1,5 +1,8 @@
 import { Point } from "./Point";
 
+/**
+ * Coordinates the program will use to interact with Paint 3D
+ */
 export type Positions = {
     toolMarker: Point,
     toolWatercolor: Point,

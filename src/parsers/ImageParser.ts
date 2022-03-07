@@ -3,15 +3,29 @@ import { Point } from "../types/Point";
 import { Color } from "../types/Color";
 import { log, LogLevel } from "../logger/Logger";
 
+/**
+ * Class that parses the Image to Pixels and Instructions.
+ * @see ParsedInstructions
+ * @author Felipe Matheus Flohr
+ */
 export class ImageParser {
     private readonly _path: string
     private _image: jimp
     private _pixels: ParsedInstructions[]
 
+    /**
+     * Class constructor
+     * @param path - Path to image
+     */
     constructor(path: string) {
         this._path = path;
     }
 
+    /**
+     * Parses the image and returns *this* instance. An async substitute for the constructor
+     * @returns *this* instance
+     * @async
+     */
     public async build() {
         this._image = await jimp.read(this._path)
         this._pixels = this.getPixels()
@@ -20,7 +34,12 @@ export class ImageParser {
         return this
     }
 
-    public getPixels() {
+    /**
+     * "Reads" every pixel of the image, then parses it to instructions and returns an array of ParsedInstructions
+     * @returns an array of {@link ParsedInstructions}
+     * @see {@link ParsedInstructions}
+     */
+    private getPixels(): ParsedInstructions[] {
         const pixels: Pixel[] = []
         const width = this._image.bitmap.width
         const height = this._image.bitmap.height
@@ -101,14 +120,27 @@ export class ImageParser {
         return parsedInstructions
     }
 
+    /**
+     * Getter for the image
+     * @returns the image as a JIMP type
+     */
     get image(): jimp {
         return this._image
     }
 
+    /**
+     * Getter for the parsed image
+     * @returns the parsed image as an array of {@link ParsedInstructions}
+     */
     get pixels(): ParsedInstructions[] {
         return this._pixels
     }
 
+    /**
+     * Takes the RGBA color of the specified pixel
+     * @param point Pixel at the specified {@link Point}
+     * @returns The RGBA of the pixel read
+     */
     private getPixelAt(point: Point): Color {
         const toInt = (num: number) => parseInt(`${num}`)
         const hex = this._image.getPixelColor(point.x, point.y)
@@ -120,11 +152,20 @@ export class ImageParser {
         }
     }
 
+    /**
+     * Compares two colors
+     * @param color1 Color 1
+     * @param color2 Color 2
+     * @returns true if the two colors are the same
+     */
     private colorEquals(color1: Color, color2: Color): boolean {
         return color1.r == color2.r && color1.g == color2.g && color1.b == color2.b && color1.a == color2.a
     }
 }
 
+/**
+ * Creates a "fake" *Set* of colors based on an ID generated
+ */
 class ColorSet {
     private readonly _colors: Color[]
     private readonly _ids: number[]
@@ -136,6 +177,11 @@ class ColorSet {
         this._size = 0
     }
 
+    /**
+     * Adds a color to the Set
+     * @param color Color to be added
+     * @returns true if the color has been added
+     */
     add(color: Color): boolean {
         const id = this.generateId(color)
 
@@ -174,12 +220,18 @@ class ColorSet {
     }
 }
 
+/**
+ * Represents the three commands used by the program to draw on Paint 3D.
+ */
 export enum Command {
     CLICK,
     SKIP,
     DRAG
 }
 
+/**
+ * Type that represents the parsed instructions and pixels.
+ */
 export type ParsedInstructions = {
     color: Color
     instructions: PixelInstruction[]

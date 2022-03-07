@@ -4,6 +4,11 @@ const tsProject = require("gulp-typescript").createProject("./tsconfig.json")
 const babel = require("gulp-babel")
 const uglify = require("gulp-uglify")
 
+/**
+ * Process all the TypeScript files to JavaScript, then Babel and Uglify it
+ * @param callback - Callback to Gulp
+ * @returns Gulp stream
+ */
 function processTS(callback) {
     return tsProject.src()
         .pipe(tsProject())
@@ -17,6 +22,11 @@ function processTS(callback) {
         .pipe(gulp.dest("dist"))
 }
 
+/**
+ * Copy all files which matches some extension specified at "*extensions.json*"
+ * @param callback - Callback to Gulp
+ * @returns Gulp stream
+ */
 function processOtherFiles(callback) {
     const otherExtensions = []
     extensions.forEach(extension => {

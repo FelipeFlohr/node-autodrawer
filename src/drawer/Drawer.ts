@@ -9,13 +9,22 @@ import { Command, ParsedInstructions } from "../parsers/ImageParser";
 import { Color } from "../types/Color";
 import { Point } from "../types/Point";
 
+/**
+ * Class that represents the Drawer. Will use Robot.JS for Mouse and Keyboard control
+ */
 export class Drawer {
-
     private readonly _parsedInstructions: ParsedInstructions[]
     private readonly _positions: Positions
     private readonly _values: Values
     private readonly _canvas: Canvas
 
+    /**
+     * Constructor for the class
+     * @param parsedInstructions The parsed pixels and instructions 
+     * @param positions The XY positions of Paint 3D UI elements
+     * @param values Values which will be set on Paint 3D
+     * @param canvas A canvas instance
+     */
     constructor(parsedInstructions: ParsedInstructions[], positions: Positions, values: Values, canvas: Canvas) {
         this._parsedInstructions = parsedInstructions
         this._positions = positions
@@ -23,6 +32,9 @@ export class Drawer {
         this._canvas = canvas
     }
 
+    /**
+     * Starts the drawing.
+     */
     public async start() {
         log(LogLevel.INFO, "Starting in 3 seconds...")
         sleep(3000)
@@ -60,6 +72,10 @@ export class Drawer {
         log(LogLevel.OK, "Drawing finished")
     }
 
+    /**
+     * Sets the color on Paint 3D
+     * @param color Color to be set
+     */
     private setColor(color: Color) {
         const doubleClick = () => {
             MouseControl.leftClick()
@@ -102,6 +118,10 @@ export class Drawer {
         log(LogLevel.INFO, `Color set to ${color.r}-${color.g}-${color.b}-${color.a}`)
     }
 
+    /**
+     * Sets the opacity on Paint 3D
+     * @param opacity Opacity value. If no value is passed, then it will use the {@link Values}' one.
+     */
     private setOpacity(opacity = this._values.brushOpacity) {
         MouseControl.leftClick(this._positions.boxBrushOpacity)
         sleep(150)
@@ -112,6 +132,9 @@ export class Drawer {
         log(LogLevel.INFO, `Opacity set to ${opacity}%`)
     }
 
+    /**
+     * Sets the tool's thickness on Paint 3D
+     */
     private setThickness() {
         MouseControl.leftClick(this._positions.boxBrushSize)
         sleep(150)
@@ -122,6 +145,9 @@ export class Drawer {
         log(LogLevel.INFO, `Thickness set to ${this._values.brushSize}px`)
     }
 
+    /**
+     * Sets the drawing tool
+     */
     private setTool() {
         switch (this._values.tool) {
             case Tool.CRAYON:
@@ -154,6 +180,9 @@ export class Drawer {
         }
     }
 
+    /**
+     * Sets the zoom value
+     */
     private setZoomValue() {
         MouseControl.leftClick(this._positions.boxZoom)
         KeyboardControl.type(this._values.zoom)
@@ -163,6 +192,9 @@ export class Drawer {
         log(LogLevel.INFO, `Zoom value set to ${this._values.zoom}`)
     }
 
+    /**
+     * Redefine the canvas
+     */
     private redefineCanvas() {
         MouseControl.moveTo(this._canvas.center)
         sleep(75)
