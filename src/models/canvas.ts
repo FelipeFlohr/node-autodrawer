@@ -42,7 +42,7 @@ export class Canvas {
             y: this._center.y - toInt(this._imageSize.height / 2)
         }
 
-        if (this._imageSize.width >= this._canvasSize.width || this._imageSize.height >= this._imageSize.height) {
+        if (this._imageSize.width >= this._canvasSize.width || this._imageSize.height >= this._canvasSize.height) {
             throw "Image size is greater then Canvas size. Please, resize it."
         }
     }
